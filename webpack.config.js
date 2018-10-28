@@ -8,10 +8,14 @@ var extractPlugin = new ExtractTextPlugin({
 });
 
 module.exports = {
-  entry: "./src/js/app.js",
+  // entry: "./src/js/app.js",
+  entry: {
+    app: "./src/js/app.js",
+    main: "./src/js/main.js"
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js"
+    filename: "[name].bundle.js"
     // publicPath: '/dist'
   },
   module: {
@@ -55,25 +59,32 @@ module.exports = {
             }
           }
         ]
-      },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[name].[ext]"
-            }
-          }
-        ],
-        exclude: path.resolve(__dirname, "src/index.html")
       }
+      //   {
+      //     test: /\.html$/,
+      //     use: [
+      //       {
+      //         loader: "file-loader",
+      //         options: {
+      //           name: "[name].[ext]"
+      //         }
+      //       }
+      //     ],
+      //     exclude: path.resolve(__dirname, "src/index.html")
+      //   }
     ]
   },
   plugins: [
     extractPlugin,
     new HtmlWebpackPlugin({
-      template: "src/index.html"
+      filename: "index.html",
+      template: "src/index.html",
+      chunks: ["app"]
+    }),
+    new HtmlWebpackPlugin({
+      filename: "main.html",
+      template: "src/main.html",
+      chunks: ["main"]
     }),
     new CleanWebpackPlugin(["dist"])
   ]

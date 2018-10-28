@@ -1,5 +1,5 @@
 import "../css/main.scss";
-import "../main.html";
+// import "../main.html";
 import { RandomGenerator } from "./random-generator";
 
 const outputParagraph = document.querySelector("#outputParagraph");
